@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Efficient Long Video Tokenization via Coordinate-based Patch Reconstrution">
+  <meta name="keywords" content="CoordTok, Video tokenization, Long video tokenization, Video generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoordTok</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']] /* $...$를 인라인 수식으로 설정 */
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://huiwon-jang.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://sites.google.com/view/2024rsp">
+            RSP
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Efficient Long Video Tokenization via Coordinate-based Patch Reconstrution</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://huiwon-jang.github.io/">Huiwon Jang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://sihyun.me/">Sihyun Yu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://alinlab.kaist.ac.kr/shin.html">Jinwoo Shin</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://people.eecs.berkeley.edu/~pabbeel/">Pieter Abbeel</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://younggyo.me/">Younggyo Seo</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>KAIST,</span>
+            <span class="author-block"><sup>2</sup>UC Berkeley</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2411.14762"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2411.14762"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/huiwon-jang/CoordTok"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+        <b>TL; DR.</b> We introduce CoordTok, a scalable video tokenizer that learns a mapping from coordinate-based representations to the corresponding patches of input videos.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Efficient tokenization of videos remains a challenge in training vision models that can process long videos.
+            One promising direction is to develop a tokenizer that can encode long video clips,
+            as it would enable the tokenizer to leverage the temporal coherence of videos better for tokenization.
+            However, training existing tokenizers on long videos often incurs a huge training cost as they are trained to reconstruct all the frames at once.
+            In this paper, we introduce CoordTok, a video tokenizer that learns a mapping from coordinate-based representations to the corresponding patches of input videos,
+            inspired by recent advances in 3D generative models.
+            In particular, CoordTok encodes a video into factorized triplane representations and reconstructs patches that correspond to randomly sampled $(x, y, t)$ coordinates.
+            This allows for training large tokenizer models directly on long videos without requiring excessive training resources.
+            Our experiments show that CoordTok can drastically reduce the number of tokens for encoding long video clips.
+            For instance, CoordTok can encode a 128-frame video with 128$\times$128 resolution into 1280 tokens,
+            while baselines need 6144 or 8192 tokens to achieve similar reconstruction quality.
+            We further show that this efficient video tokenization enables memory-efficient training of a diffusion transformer that can generate 128 frames at once.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method overview. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Method overview</h2>
+        <div class="column has-text-centered">
+          <img src="./static/images/method_overview.png" alt>
+        </div>
+        <div class="content has-text-justified">
+          <p>We design our <span style="color: #4285F4;">encoder</span> to encode a <span style="color: #4285F4;">video $\mathbf{x}$ into factorized triplane representations</span> $\mathbf{z} = \left[\mathbf{z}^{xy}, \mathbf{z}^{yt}, \mathbf{z}^{xt}\right]$
+            which can efficiently represent the video with three 2D latent planes.
+            Given the triplane representations $\mathbf{z}$,
+            our <span style="color: #DB4437;">decoder</span> learns a <span style="color: #DB4437;">mapping from $(x, y, t)$ coordinates to RGB pixels within the corresponding patches</span>.
+            In particular, we extract coordinate-based representations of $N$ sampled coordinates by querying the coordinates from triplane representations via bilinear interpolation.
+            Then the decoder aggregates and fuses information from different coordinates with self-attention layers and project outputs into corresponding patches.
+            This design enables us to <b>train tokenizers on long videos in a compute-efficient manner by avoiding reconstruction of entire frames at once</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Method overview. -->
+  </div>
+</section>
+
+<style>
+  .row {
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    margin-bottom: 1px; /* 위아래 간격 줄이기 */
+    flex-wrap: wrap; /* 칸이 작아지면 텍스트가 아래로 이동 */
+  }
+  .label {
+    width: 12%; /* 텍스트 너비 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    font-size: 13px; /* 기본 글자 크기 */
+    overflow-wrap: break-word; /* 띄어쓰기 기준으로 줄바꿈 */
+    word-break: keep-all; /* 단어가 중간에서 끊어지지 않도록 설정 */
+  }
+  .label small {
+    display: block; /* 무조건 줄바꿈 */
+    font-size: 11px; /* (#tokens=xx) 폰트 크기 */
+  }
+  .video-container {
+    width: 88%; /* 비디오 컨테이너 너비 */
+    text-align: center; /* 비디오 가운데 정렬 */
+  }
+  video {
+    width: 100%; /* 비디오 크기 조정 */
+  }
+</style>
+
+<style>
+  .media-container {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Default to 1:1 aspect ratio */
+    overflow: hidden;
+  }
+
+  .media-container img,
+  .media-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+  }
+
+  /* Adjust aspect ratio for z_yt and z_xt images */
+  .column[data-size="2"] .media-container {
+    padding-top: 50%; /* For 2:1 aspect ratio */
+  }
+
+  /* Remove default padding and margins from columns */
+  .column {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Remove spacing between columns */
+  .columns {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-wrap: nowrap; /* Prevent wrapping */
+  }
+
+  /* Reduce margin between rows */
+  .content-row {
+    margin-bottom: 0;
+    padding-bottom: 0px;
+  }
+  .label-row {
+    margin-bottom: 0px; /* 마진 절반으로 줄이기 */
+    flex-wrap: nowrap;
+  }
+  /* Align text labels according to column ratios */
+  .label-row .column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Prevent text from wrapping */
+    flex-shrink: 0;
+    min-width: 50px;
+  }
+
+  /* Set flex ratios for columns */
+  .column[data-size="1"] {
+    flex: 0 0 calc(12.5%); /* 1/6 of the width */
+  }
+
+  .column[data-size="2"] {
+    flex: 0 0 calc(25%); /* 2/6 of the width */
+  }
+
+  /* Prevent label row from wrapping */
+  .label-row {
+    flex-wrap: nowrap;
+  }
+
+  /* Ensure the spacer has a consistent width */
+  .columns > div[style*="width: 1%"] {
+    flex: 0 0 1%;
+  }
+
+  /* Responsive adjustments for mobile */
+  @media (max-width: 768px) {
+    .columns.is-mobile {
+      flex-wrap: nowrap;
+    }
+
+    /* Adjust aspect ratios on mobile */
+    .media-container {
+      padding-top: 100%;
+    }
+  }
+</style>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Long video reconstruction. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Long video reconstruction</h2>
+        <div class="content has-text-justified">
+          <p>Note: If the videos for GT and the different approaches are not properly synchronized, please try out refreshing the page!</p>
+        </div>
+        <!-- Comparison -->
+        <h3 class="title is-4">Comparison with existing video tokenizers</h3>
+        <div class="content has-text-justified">
+          <p>128-frame, 128$\times$128 resolution video reconstruction results from CoordTok (Ours) and baselines trained on the UCF-101 dataset.</p>
+        </div>
+        <div class="row">
+          <div class="label">
+            <b>GT</b>
+          </div>
+          <div class="video-container">
+            <video id="gt" autoplay controls muted loop playsinline>
+              <source src="./static/videos/recon_gt.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">
+            <a href="https://arxiv.org/abs/2302.07685"><b>PVDM</b></a>
+            <small>(#tokens=6144)</small>
+          </div>
+          <div class="video-container">
+            <video id="pvdm" autoplay controls muted loop playsinline>
+              <source src="./static/videos/recon_pvdm.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">
+            <a href="https://arxiv.org/abs/2410.21264"><b>LARP</b></a>
+            <small>(#tokens=8192)</small>
+          </div>
+          <div class="video-container">
+            <video id="larp" autoplay controls muted loop playsinline>
+              <source src="./static/videos/recon_larp.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">
+            <b>Ours</b>
+            <small>(#tokens=1280)</small>
+          </div>
+          <div class="video-container">
+            <video id="CoordTok (Ours)" autoplay controls muted loop playsinline>
+              <source src="./static/videos/recon_ours.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ Comparison. -->
+
+        <!-- Qualitative results. -->
+        <p></p>
+        <h3 class="title is-4">More qualitative results</h3>
+        <div class="row">
+          <div class="label">
+            <b>GT</b>
+          </div>
+          <div class="video-container">
+            <video id="gt" autoplay controls muted loop playsinline>
+              <source src="./static/videos/recon_gt2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">
+            <b>Ours</b>
+            <small>(#tokens=1280)</small>
+          </div>
+          <div class="video-container">
+            <video id="CoordTok (Ours)" autoplay controls muted loop playsinline>
+              <source src="./static/videos/recon_ours2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ Qualitative results. -->
+      </div>
+    </div>
+    <!--/ Long video reconstruction. -->
+
+    <!-- Long video generation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Long video generation</h2>
+        <!-- Qualitative results. -->
+        <div class="content has-text-justified">
+          <p>
+            Unconditional 128-frame, 128$\times$128 resolution video generation results from CoordTok-SiT-L/2 trained on 128-frame videos from the UCF-101 dataset.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="90%">
+            <source src="./static/videos/gen_ours.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!--/ Qualitative results. -->
+      </div>
+    </div>
+    <!--/ Long video generation. -->
+
+    <!-- Latent visualization -->
+<div class="columns is-centered">
+  <div class="column is-full-width">
+    <h2 class="title is-3 has-text-centered">Latent visualization</h2>
+    <div class="content has-text-justified">
+      <p>
+        Illustration of factorized triplane representations of CoordTok trained on the UCF-101 dataset.
+        We note that $\textbf{z}_{xy}$ captures the global content in the video across time, e.g., layout and appearance of the scene or object,
+        and $\textbf{z}_{yt}$, $\textbf{z}_{xt}$ capture the underlying motion in the video across two spatial axes.
+      </p>
+    </div>
+    <h3 class="title is-4">Latent visualization when global content moves horizontally</h3>
+    <div class="content has-text-justified">
+      <p>
+        When the global content is moving horizontally,
+        the slope of the $y$ value with respect to the $t$-axis is steep at $\textbf{z}_{yt}$.
+        In contrast, the slop of the $x$ value with respect to the $t$-axis is flat at $\textbf{z}_{xt}$.
+      </p>
+    </div>
+    <div class="content has-text-centered">
+      <!-- Labels Row -->
+      <div class="columns is-gapless is-mobile is-centered is-vcentered label-row">
+        <div class="column" data-size="1"><b>GT</b></div>
+        <!-- Spacer -->
+        <div style="width: 1%;"></div>
+        <div class="column" data-size="1"><b>$\textbf{z}_{xy}$</b></div>
+        <div class="column" data-size="2"><b>$\textbf{z}_{yt}$</b></div>
+        <div class="column" data-size="2"><b>$\textbf{z}_{xt}$</b></div>
+      </div>
+      <!-- Content Rows -->
+      <!-- Set 1 -->
+      <div class="columns is-gapless is-mobile is-centered is-vcentered content-row">
+        <!-- GT Video -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/gt1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!-- Spacer between GT and z_xy -->
+        <div style="width: 1%;"></div>
+        <!-- z_xy Image -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <img src="./static/images/zxy1.jpg" alt="zxy1 visualization">
+          </div>
+        </div>
+        <!-- z_yt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zyt1.jpg" alt="zyt1 visualization">
+          </div>
+        </div>
+        <!-- z_xt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zxt1.jpg" alt="zxt1 visualization">
+          </div>
+        </div>
+      </div>
+      <!-- Set 2 -->
+      <div class="columns is-gapless is-mobile is-centered is-vcentered content-row">
+        <!-- GT Video -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/gt2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!-- Spacer between GT and z_xy -->
+        <div style="width: 1%;"></div>
+        <!-- z_xy Image -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <img src="./static/images/zxy2.jpg" alt="zxy2 visualization">
+          </div>
+        </div>
+        <!-- z_yt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zyt2.jpg" alt="zyt2 visualization">
+          </div>
+        </div>
+        <!-- z_xt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zxt2.jpg" alt="zxt2 visualization">
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="title is-4">Latent visualization when global content moves vertically</h3>
+    <div class="content has-text-justified">
+      <p>
+        When the global content is moving vertically,
+        the slope of the $x$ value with respect to the $t$-axis is steep at $\textbf{z}_{xt}$.
+        In contrast, the slop of the $y$ value with respect to the $t$-axis is flat at $\textbf{z}_{yt}$.
+      </p>
+    </div>
+    <div class="content has-text-centered">
+      <!-- Labels Row -->
+      <div class="columns is-gapless is-mobile is-centered is-vcentered label-row">
+        <div class="column" data-size="1"><b>GT</b></div>
+        <!-- Spacer -->
+        <div style="width: 1%;"></div>
+        <div class="column" data-size="1"><b>$\textbf{z}_{xy}$</b></div>
+        <div class="column" data-size="2"><b>$\textbf{z}_{yt}$</b></div>
+        <div class="column" data-size="2"><b>$\textbf{z}_{xt}$</b></div>
+      </div>
+      <!-- Content Rows -->
+      <!-- Set 1 -->
+      <div class="columns is-gapless is-mobile is-centered is-vcentered content-row">
+        <!-- GT Video -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/gt3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!-- Spacer between GT and z_xy -->
+        <div style="width: 1%;"></div>
+        <!-- z_xy Image -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <img src="./static/images/zxy3.jpg" alt="zxy1 visualization">
+          </div>
+        </div>
+        <!-- z_yt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zyt3.jpg" alt="zyt1 visualization">
+          </div>
+        </div>
+        <!-- z_xt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zxt3.jpg" alt="zxt1 visualization">
+          </div>
+        </div>
+      </div>
+      <!-- Set 2 -->
+      <div class="columns is-gapless is-mobile is-centered is-vcentered content-row">
+        <!-- GT Video -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/gt4.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!-- Spacer between GT and z_xy -->
+        <div style="width: 1%;"></div>
+        <!-- z_xy Image -->
+        <div class="column has-text-centered" data-size="1">
+          <div class="media-container">
+            <img src="./static/images/zxy4.jpg" alt="zxy2 visualization">
+          </div>
+        </div>
+        <!-- z_yt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zyt4.jpg" alt="zyt2 visualization">
+          </div>
+        </div>
+        <!-- z_xt Image -->
+        <div class="column has-text-centered" data-size="2">
+          <div class="media-container">
+            <img src="./static/images/zxt4.jpg" alt="zxt2 visualization">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ Latent visualization -->
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Website adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
