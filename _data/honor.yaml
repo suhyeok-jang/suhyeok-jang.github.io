@@ -5,6 +5,6 @@ honor-award:
     category: "award"
 
   - place: "Dean’s List"
-    time: "2<sup>nd</sup> 2023"  # "2nd"를 위 첨자로 표시
+    time: "2<sup>nd</sup> 2023" 
     title: "Korea University"
     category: "honor"
