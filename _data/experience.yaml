@@ -1,16 +1,15 @@
 experiences:
-- place: "KAIST ALIN-LAB"
-  time: "Mar. 2023 - Present"
-  title: "Graduate student in KAIST AI"
-  category: "school"
+  - place: "Undergraduate Researcher"
+    time: "Mar. 2024 - Aug. 2024"
+    title: '<a href="https://alinlab.kaist.ac.kr/index.html">Algorithmic Intelligence Laboratory (ALIN-Lab)</a> (advised by <a href="https://alinlab.kaist.ac.kr/shin.html">Prof. Jinwoo Shin</a>)'
+    category: "undergraduate researcher"
 
-- place: "i-SENS"
-  time: "Oct. 2022 - Oct. 2023"
-  title: "Research Intern"
-  subtitle: "AI engineer"
-  category: "work"
+  - place: "Undergraduate Researcher"
+    time: "Nov. 2023 - Mar. 2024"
+    title: '<a href="https://utl.korea.ac.kr/">Universal Transfer Learning (UTL) Lab</a> (advised by <a href="https://cs-people.bu.edu/donhk/">Prof. Donghyun Kim</a>)'
+    category: "undergraduate researcher"
 
-- place: "KAIST"
-  time: "Mar. 2019 - Feb. 2023"
-  title: "B.S. in Mathematical Science and Computer Science"
-  category: "school"
+  - place: "Research Intern"
+    time: "Mar. 2023 - Aug. 2023"
+    title: "NCSOFT Speech AI Lab"
+    category: "research intern"
