@@ -96,10 +96,15 @@ layout: default
 <!-- ========== Experience ========== -->
 <div class="docs-section" id="experience">
   <h4>Experience</h4>
-        <div class="paper">
-          <p class="title"><b>AI Research Intern<b style="float:right;">Oct. 2022 - Oct. 2023</b></b></p>
-          <a href="https://i-sens.com/">i-SENS</a>
-        </div>
+  {% for exp in site.data.experience.experiences %}
+    <div class="paper">
+      <p class="title">
+        <b>{{ exp.place }}</b>
+        <b style="float:right;">{{ exp.time }}</b>
+      </p>
+      <p>{{ exp.title | safe }}</p>
+    </div>
+  {% endfor %}
 </div>
 
 <!-- ========== Academic Services ========== -->
