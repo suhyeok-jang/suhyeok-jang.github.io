@@ -5,7 +5,6 @@ papers:
     paper_pdf: "https://openreview.net/pdf?id=99GovbuMcP"
     arxiv: "https://arxiv.org/abs/2411.08933"
     code: "https://github.com/suhyeok-jang/FT-CADIS/tree/main"
-    selected: y
     thumbnail : "/assets/publications/ft-cadis_tmlr2024/ft-cadis_thumbnail.jpg"
 
 
