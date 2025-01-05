@@ -1,10 +1,11 @@
 papers:
-  - title: "Confidence-aware Denoised Fine-tuning of Off-the-shelf Models for Certified Robustness"
+  - title: "[J1] Confidence-aware Denoised Fine-tuning of Off-the-shelf Models for Certified Robustness"
     authors: "<b><u>Suhyeok Jang</u>*</b>, <a href='https://seojin-kim.github.io/'>Seojin Kim*</a>, <a href='https://alinlab.kaist.ac.kr/shin.html'>Jinwoo Shin</a>, <a href='https://jh-jeong.github.io/'>Jongheon Jeong</a>"
     venue: "Transactions on Machine Learning Research (TMLR), 2024"
     paper_pdf: "https://openreview.net/pdf?id=99GovbuMcP"
     arxiv: "https://arxiv.org/abs/2411.08933"
     code: "https://github.com/suhyeok-jang/FT-CADIS/tree/main"
     selected: y
+    thumnail : 
 
 
