@@ -1,6 +1,6 @@
 papers:
   - title: "Confidence-aware Denoised Fine-tuning of Off-the-shelf Models for Certified Robustness"
-    authors: "<b><u>Suhyeok Jang</u><sup>*</sup></b>, <a href='https://seojin-kim.github.io/'>Seojin Kim<sup>*</sup></a>, <a href='https://alinlab.kaist.ac.kr/shin.html'>Jinwoo Shin</a>, <a href='https://jh-jeong.github.io/'>Jongheon Jeong</a>"
+    authors: "<b><u>Suhyeok Jang</u>*</b>, <a href='https://seojin-kim.github.io/'>Seojin Kim*</a>, <a href='https://alinlab.kaist.ac.kr/shin.html'>Jinwoo Shin</a>, <a href='https://jh-jeong.github.io/'>Jongheon Jeong</a>"
     venue: "Transactions on Machine Learning Research (TMLR), 2024"
     paper_pdf: "https://openreview.net/pdf?id=99GovbuMcP"
     arxiv: "https://arxiv.org/abs/2411.08933"
