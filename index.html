@@ -26,7 +26,7 @@ layout: default
             <!-- 이미지 섹션 (왼쪽) -->
             {% if paper.thumbnail %}
               <div class="three columns">
-                <img class="u-max-full-width" style="border-radius: 1rem;" src="{{ paper.image | prepend: site.baseurl }}" alt="{{ paper.title }} thumbnail">
+                <img class="u-max-full-width" style="border-radius: 1rem;" src="{{ paper.thumbnail | prepend: site.baseurl }}" alt="{{ paper.title }} thumbnail">
               </div>
             {% endif %}
 
