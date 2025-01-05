@@ -23,14 +23,12 @@ layout: default
       {% for paper in site.data.publications.papers %}
         <div class="paper">
           <div class="row">
-            <!-- 이미지 섹션 (왼쪽) -->
             {% if paper.thumbnail %}
               <div class="four columns">
                 <img class="u-max-full-width" style="border-radius: 1rem;" src="{{ paper.thumbnail | prepend: site.baseurl }}" alt="{{ paper.title }} thumbnail">
               </div>
             {% endif %}
 
-            <!-- 텍스트 섹션 (오른쪽) -->
             <div class="{% if paper.thumbnail %}eight columns{% else %}twelve columns{% endif %}">
               <p class="title"><b>{{ paper.title }}</b></p>
               <p>{{ paper.authors }}</p>
@@ -72,12 +70,12 @@ layout: default
                 {% endif %}
               </div>
             </div>
-          </div> <!-- .row 닫기 -->
-        </div> <!-- .paper 닫기 -->
+          </div> 
+        </div> 
       {% endfor %}
-    </div> <!-- .tab-pane 닫기 -->
-  </div> <!-- .tab-content 닫기 -->
-</div> <!-- .docs-section 닫기 -->
+    </div> 
+  </div> 
+</div> 
 
 <!-- ========== Education ========== -->
 <div class="docs-section" id="education">
