@@ -2,9 +2,9 @@ honor-award:
   - place: "Dean’s List"
     time: "2<sup>nd</sup> 2023"  # "2nd"를 위 첨자로 표시
     title: "Korea University"
-    category: "award"
+    category: "honor"
 
   - place: "1st Award in the 2023 K-Data Science Hackathon"
     time: "Nov. 2023"
     title: "Ministry of Science and ICT"
-    category: "honor"
+    category: "award"
