@@ -22,51 +22,62 @@ layout: default
     <div class="tab-pane active">
       {% for paper in site.data.publications.papers %}
         <div class="paper">
-          <p class="title"><b>{{ paper.title }}</b></p>
-          <p>{{ paper.authors }}</p>
-          <p><i>{{ paper.venue }}</i></p>
-          {% if paper.venue2 %}
-            <p><i>{{ paper.venue2 }}</i></p>
-          {% endif %}
-           <div class="paper-buttons">
-            {% if paper.paper_pdf %}
-              <a class="button" href="{{ paper.paper_pdf | prepend: site.baseurl }}" target="_blank">Paper</a>
+          <div class="row">
+            <!-- 이미지 섹션 (왼쪽) -->
+            {% if paper.image %}
+              <div class="three columns">
+                <img class="u-max-full-width" style="border-radius: 1rem;" src="{{ paper.image | prepend: site.baseurl }}" alt="{{ paper.title }} thumbnail">
+              </div>
             {% endif %}
 
-            {% if paper.arxiv %}
-              <a class="button" href="{{ paper.arxiv | prepend: site.baseurl }}" target="_blank">Arxiv</a>
-            {% endif %}
+            <!-- 텍스트 섹션 (오른쪽) -->
+            <div class="{% if paper.image %}nine columns{% else %}twelve columns{% endif %}">
+              <p class="title"><b>{{ paper.title }}</b></p>
+              <p>{{ paper.authors }}</p>
+              <p><i>{{ paper.venue }}</i></p>
+              {% if paper.venue2 %}
+                <p><i>{{ paper.venue2 }}</i></p>
+              {% endif %}
+              <div class="paper-buttons">
+                {% if paper.paper_pdf %}
+                  <a class="button" href="{{ paper.paper_pdf | prepend: site.baseurl }}" target="_blank">Paper</a>
+                {% endif %}
 
-            {% if paper.slides %}
-              <a class="button" href="{{ paper.slides | prepend: site.baseurl }}" target="_blank">Slides</a>
-            {% endif %}
+                {% if paper.arxiv %}
+                  <a class="button" href="{{ paper.arxiv | prepend: site.baseurl }}" target="_blank">Arxiv</a>
+                {% endif %}
 
-            {% if paper.website %}
-              <a class="button" href="{{ paper.website | prepend: site.baseurl }}" target="_blank">Website</a>
-            {% endif %}
+                {% if paper.slides %}
+                  <a class="button" href="{{ paper.slides | prepend: site.baseurl }}" target="_blank">Slides</a>
+                {% endif %}
 
-            {% if paper.poster %}
-              <a class="button" href="{{ paper.poster | prepend: site.baseurl }}" target="_blank">Poster</a>
-            {% endif %}
+                {% if paper.website %}
+                  <a class="button" href="{{ paper.website | prepend: site.baseurl }}" target="_blank">Website</a>
+                {% endif %}
 
-            {% if paper.video %}
-              <a class="button" href="{{ paper.video }}" target="_blank">Video</a>
-            {% endif %}
+                {% if paper.poster %}
+                  <a class="button" href="{{ paper.poster | prepend: site.baseurl }}" target="_blank">Poster</a>
+                {% endif %}
 
-            {% if paper.code %}
-              <a class="button" href="{{ paper.code }}" target="_blank">Code</a>
-            {% endif %}
+                {% if paper.video %}
+                  <a class="button" href="{{ paper.video }}" target="_blank">Video</a>
+                {% endif %}
 
-            {% if paper.data %}
-              <a class="button" href="{{ paper.data }}" target="_blank">Data</a>
-            {% endif %}
-          </div>
-        </div>
+                {% if paper.code %}
+                  <a class="button" href="{{ paper.code }}" target="_blank">Code</a>
+                {% endif %}
+
+                {% if paper.data %}
+                  <a class="button" href="{{ paper.data }}" target="_blank">Data</a>
+                {% endif %}
+              </div>
+            </div>
+          </div> <!-- .row 닫기 -->
+        </div> <!-- .paper 닫기 -->
       {% endfor %}
-    </div>
-  </div>
-</div>
-
+    </div> <!-- .tab-pane 닫기 -->
+  </div> <!-- .tab-content 닫기 -->
+</div> <!-- .docs-section 닫기 -->
 <!-- ========== Education ========== -->
 <div class="docs-section" id="education">
   <h4>Education</h4>
