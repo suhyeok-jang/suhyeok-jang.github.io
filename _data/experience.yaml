@@ -1,4 +1,9 @@
 experiences:
+  - place: "Visiting Researcher"
+    time: "Mar. 2026 - Current"
+    title: '<a href="https://www.rlwrld.ai/">RLWRLD</a>'
+    category: "visiting researcher"
+    
   - place: "Undergraduate Researcher"
     time: "Mar. 2024 - Aug. 2024"
     title: '<a href="https://alinlab.kaist.ac.kr/index.html">Algorithmic Intelligence Laboratory (ALIN-Lab)</a> (advised by <a href="https://alinlab.kaist.ac.kr/shin.html">Prof. Jinwoo Shin</a>)'
