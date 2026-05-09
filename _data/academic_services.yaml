@@ -1,0 +1,3 @@
+services:
+  - role: "Conference Reviewer"
+    venues: "NeurIPS'26"

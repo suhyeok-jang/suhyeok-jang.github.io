@@ -106,15 +106,14 @@ layout: default
 </div>
 
 <!-- ========== Academic Services ========== -->
-<!-- <div class="docs-section" id="services">
+<div class="docs-section" id="services">
   <h4>Academic Services</h4>
-        <div class="paper">
-          <p class="title"><b>Conference Reviewer</b>, IJCAI 2023; NeurIPS 2024; ICLR 2025; AISTATS 2025 </p>
-        </div>
-        <div class="paper">
-          <p class="title"><b>Journal Reviewer</b>, IJCV </p>
-        </div>
-</div> -->
+  {% for service in site.data.academic_services.services %}
+    <div class="paper">
+      <p class="title"><b>{{ service.role }}</b>, {{ service.venues }}</p>
+    </div>
+  {% endfor %}
+</div>
 
 
 <!-- ========== Honors & Awards ========== -->
