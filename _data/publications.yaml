@@ -21,3 +21,10 @@ papers:
     arxiv: "https://arxiv.org/abs/2602.18742"
     website: "https://seungkukim.github.io/robocurate/"
     thumbnail: "/assets/publications/robocurate_arxiv2026/robocurate_figure.png"
+
+  - title: "[Technical Report] RLDX-1: A Dexterity-First Foundation Model for Robot Hands"
+    authors: "<a href='https://kingdy2002.github.io/'>Dongyoung Kim§</a>, <a href='https://huiwon-jang.github.io/'>Huiwon Jang§</a>, <a href='https://myungkyukoo.github.io/'>Myungkyu Koo†</a>, <b><u>Suhyeok Jang†</u></b>, Taeyoung Kim†, et al., <a href='https://alinlab.kaist.ac.kr/shin.html'>Jinwoo Shin§</a>"
+    venue: "arXiv Preprint, 2026"
+    arxiv: "https://arxiv.org/abs/2605.03269"
+    website: "https://www.rlwrld.ai/ko/rldx-1"
+    thumbnail: "/assets/publications/rldx1_techreport2026/rldx1_teaser.png"
